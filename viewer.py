@@ -1,0 +1,84 @@
+from tkinter import *
+# from PIL import ImageTk, Image
+from PIL import ImageTk, Image
+
+root = Tk()
+root.title("Image Viewer")
+
+# Create icon
+root.iconbitmap('data:image/jpeg;base64,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')
+
+
+
+# Create image
+# my_img = ImageTk.PhotoImage(Image.open("blak2.jpg"))
+my_img1 = ImageTk.PhotoImage(Image.open("e:/조니벡/coding course/english course/TKINTER/practise/doktor3.jpg"))
+my_img2= ImageTk.PhotoImage(Image.open("e:/조니벡/coding course/english course/TKINTER/practise/doktor.jpg"))
+my_img3 = ImageTk.PhotoImage(Image.open("e:/조니벡/coding course/english course/TKINTER/practise/doktor1.jpg"))
+my_img4 = ImageTk.PhotoImage(Image.open("e:/조니벡/coding course/english course/TKINTER/practise/doktor2.jpg"))
+my_img5 = ImageTk.PhotoImage(Image.open("e:/조니벡/coding course/english course/TKINTER/practise/doktor3.jpg"))
+
+image_list = [my_img1, my_img2, my_img3, my_img4, my_img5]
+
+status = Label(root, text="Image 1 of " + str(len(image_list)), bd=1, relief=SUNKEN, anchor=E)
+
+
+my_label = Label(image=my_img1)
+my_label.grid(row=0, column=0, columnspan=3)
+
+
+def forward(image_number):
+    global my_label
+    global button_forward
+    global button_back
+
+    my_label.grid_forget()
+    my_label = Label(image=image_list[image_number-1])
+    button_forward = Button(root, text=">>", command=lambda: forward(image_number + 1))
+    button_back = Button(root, text="<<", command=lambda: back(image_number - 1))
+
+
+    if image_number == 5:
+        button_forward = Button(root, text=">>", state=DISABLED)
+    
+    my_label.grid(row=0, column=0, columnspan=3)
+    button_back.grid(row=1, column=0)
+    button_forward.grid(row=1, column=2)
+
+    status = Label(root, text="Image "+ str(image_number) +" of " + str(len(image_list)), bd=1, relief=SUNKEN, anchor=E)
+    status.grid(row=2, column=0, columnspan=3, sticky=W+E)
+
+def back(image_number):
+    global my_label
+    global button_forward
+    global button_back
+
+    my_label.grid_forget()
+    my_label = Label(image=image_list[image_number-1])
+    button_forward = Button(root, text=">>", command=lambda: forward(image_number + 1))
+    button_back = Button(root, text="<<", command=lambda: back(image_number - 1))
+
+    if image_number == 1:
+        button_back = Button(root, text=">>", state=DISABLED)
+
+    my_label.grid(row=0, column=0, columnspan=3)
+    button_back.grid(row=1, column=0)
+    button_forward.grid(row=1, column=2)
+
+    status = Label(root, text="Image "+ str(image_number) +" of " + str(len(image_list)), bd=1, relief=SUNKEN, anchor=E)
+    status.grid(row=2, column=0, columnspan=3, sticky=W+E)  
+
+button_back = Button(root, text="<<", command=back, state=DISABLED)
+button_exit = Button(root, text="Exit program", command=root.quit)
+button_forward = Button(root, text=">>", command=lambda : forward(2))
+
+button_back.grid(row=1, column=0)
+button_exit.grid(row=1, column=1)
+button_forward.grid(row=1, column=2, pady=10)
+
+status.grid(row=2, column=0, columnspan=3, sticky=W+E)
+
+
+
+
+root.mainloop()
